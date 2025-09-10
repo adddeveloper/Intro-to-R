@@ -1,0 +1,110 @@
+---
+title: "Lab 1: Intro to R"
+author: "Adnan Hussein"
+date: "`r Sys.Date()`"
+output: openintro::lab_report
+---
+
+Loading dependencies
+```{r load-packages, message=FALSE}
+library(tidyverse)
+library(openintro)
+```
+
+# Dr. Arbuthnot’s Baptism Records
+The number of columns is 3
+The number of Row is 82
+```{r}
+glimpse(arbuthnot)
+```
+
+Closer look at Arbuthnot
+```{r}
+arbuthnot$boys
+```
+
+# Data visualization
+Data visualization
+```{r}
+ggplot(data = arbuthnot, aes(x = year, y = girls)) + 
+  geom_point()
+```
+
+Different graph
+```{r}
+ggplot(data = arbuthnot, aes(x = year, y = girls)) +
+  geom_line()
+```
+
+Graphing help
+```{r}
+?ggplot
+```
+
+# R as a big calculator
+Doing basic math
+```{r}
+5218 + 4683
+```
+
+Calculating the sum
+```{r}
+arbuthnot$boys + arbuthnot$girls
+```
+
+# Adding a new variable to the data frame
+```{r}
+arbuthnot <- arbuthnot %>%
+  mutate(total = boys + girls)
+```
+
+Glimpse the new column
+```{r}
+glimpse(arbuthnot$total)
+```
+
+Graphing the new total
+```{r}
+ggplot(data = arbuthnot, aes(x = year, y = total)) + 
+  geom_line()
+```
+
+New ratio column
+```{r}
+arbuthnot <- arbuthnot %>%
+  mutate(boy_to_girl_ratio = boys / girls)
+```
+
+Glimpse the new ratio column
+```{r}
+glimpse(arbuthnot$boy_to_girl_ratio)
+```
+
+New more boys than girls column
+```{r}
+arbuthnot <- arbuthnot %>%
+  mutate(more_boys = boys > girls)
+```
+
+Glimpse the new more boys than girls column
+```{r}
+glimpse(arbuthnot$more_boys)
+```
+
+# More Practice
+Summarize column: boys
+```{r}
+arbuthnot %>%
+  summarize(min = min(boys),
+            max = max(boys)
+            )
+```
+
+Summarize column: girls
+```{r}
+arbuthnot %>%
+  summarize(min = min(girls),
+            max = max(girls)
+            )
+```
+
